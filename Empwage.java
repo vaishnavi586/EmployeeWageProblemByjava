@@ -4,19 +4,27 @@ public class Empwage {
 
                  System.out.println("welcome to employee wage computation");
                  int isfulltime = 1;
+                 int isPartTime = 2;
                  int wagePerHr=20;
-                 int empHrs=8;
-                 double empcheck = Math.floor(Math.random() *10) % 2;
+                 double empcheck = Math.floor(Math.random() *10) % 3;
                  if (empcheck == isfulltime) {
-                  double salary = empHrs * wagePerHr;
+                  int empHrs = 8;
                   System.out.println("employee is present");
-                  System.out.println("salary" +salary);
+                 
+                  }
+                  else if (empcheck == isPartTime){
+                  int empHrs = 4;
+                  System.out.println("employee is present for half time");
                   }
 
                   else {
                   System.out.println("employee is absent");
 
             }
+
+                  double salary = empHrs * wagePerHr;
+
+                  System.out.println("salary" +salary);
          }
 
 }
