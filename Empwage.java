@@ -7,16 +7,18 @@ public class Empwage {
                  int isPartTime = 2;
                  int wagePerHr = 20;
                  int noOfWorkinDays = 20;
-                 int wage=0;
+                   int workhrs=0;
                   int totalwage=0;
-
-                 for (int day=1; day<=20; day++) {
+                   int totalworkdays=0;
+                   int totalworkhrs=0;
+                 while (totalworkhrs<100 && totalworkdays<20) {
+                 totalworkdays++;
                  double empcheck = Math.floor(Math.random() *10) % 3;
                   int value = (int)Math.round(empcheck); 
   
                  switch (value) {
                  case 0:
-                    wage = 8 * 20 ;
+                    workhrs=8;
 
                    System.out.println("employee is present");
                   
@@ -24,7 +26,7 @@ public class Empwage {
 
                     break;               
                   case 1:
-                   wage = 4*20;
+                   workhrs=4;
                    System.out.println("employee is present for half time");
 
                     break;
@@ -33,10 +35,16 @@ public class Empwage {
                  
                    break;
             }
-           totalwage= wage + totalwage;
+            totalworkhrs=totalworkhrs+workhrs;
+
 
         }
-            System.out.println("total salary is" +totalwage);
 
+                 totalwage=totalworkhrs*20;
+                 
+                 System.out.println("totalworkhrs" +totalworkhrs);
+                 System.out.println("total salary is" +totalwage);
+            
          }
 }
+ 
