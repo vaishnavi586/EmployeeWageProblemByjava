@@ -1,50 +1,47 @@
 public class Empwage {
+public static final int IS_PART_TIME = 1;
+public static final int IS_FULL_TIME = 2;
+public static final int EMP_RATE_PER_HOUR = 20;
+public static final int NUM_OF_WORKING_DAYS = 20;
+public static final int MAX_HRS_IN_MONTH = 100;
 
-         public static void main(String args[]){
+void wage() {
+int empHrs = 0; int totalEmpHrs = 0;
+ int totalWorkingDays = 0;
+while (totalEmpHrs <= MAX_HRS_IN_MONTH &&  totalWorkingDays < NUM_OF_WORKING_DAYS) {
+totalWorkingDays++;
 
-                 System.out.println("welcome to employee wage computation");
-                 int isfulltime = 1;
-                 int isPartTime = 2;
-                 int wagePerHr = 20;
-                 int noOfWorkinDays = 20;
-                   int workhrs=0;
-                  int totalwage=0;
-                   int totalworkdays=0;
-                   int totalworkhrs=0;
-                 while (totalworkhrs<100 && totalworkdays<20) {
-                 totalworkdays++;
-                 double empcheck = Math.floor(Math.random() *10) % 3;
-                  int value = (int)Math.round(empcheck); 
-  
-                 switch (value) {
-                 case 0:
-                    workhrs=8;
-
-                   System.out.println("employee is present");
-                  
-         
-
-                    break;               
-                  case 1:
-                   workhrs=4;
-                   System.out.println("employee is present for half time");
-
-                    break;
-                 case 2:
-                  System.out.println("employee is absent");
-                 
-                   break;
-            }
-            totalworkhrs=totalworkhrs+workhrs;
-
-
-        }
-
-                 totalwage=totalworkhrs*20;
-                 
-                 System.out.println("totalworkhrs" +totalworkhrs);
-                 System.out.println("total salary is" +totalwage);
-            
-         }
+int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+switch (empCheck) {
+case IS_PART_TIME:
+   empHrs = 4;
+   break;
+case IS_FULL_TIME:
+  empHrs = 8;
+break;
+default:
+   empHrs = 0;
 }
- 
+totalEmpHrs += empHrs;
+System.out.println("Day#: " + totalWorkingDays + " totalEmpHrs: " +totalEmpHrs);
+
+}
+int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
+System.out.println( "total employee wage is "+totalEmpWage);
+
+}
+
+
+public static void main(String[] args) {
+
+Empwage empobj=new Empwage();
+empobj.wage();
+
+
+}
+
+}
+
+
+
+
