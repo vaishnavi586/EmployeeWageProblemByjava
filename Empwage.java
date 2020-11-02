@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 interface IEmpwage
 {
     public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS);
@@ -30,17 +31,16 @@ class Empwage implements IEmpwage {
 public static final int IS_PART_TIME = 1;
 public static final int IS_FULL_TIME =2;
 int noofcompanies, index;
-CompanyEmpWage[] companyEmpWageArray;
-public Empwage(int noofcompanies) {
-this.noofcompanies = noofcompanies;   
-companyEmpWageArray = new CompanyEmpWage[noofcompanies];
-index=0;
+ArrayList<CompanyEmpWage> companyEmpWageArray;
+public Empwage()
+{
+companyEmpWageArray= new ArrayList<>();
 }
 
 
 public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
-companyEmpWageArray[index++] = new CompanyEmpWage( companyname, EMPRATEPERHOUR, MAXHRSINMONTH, NUMOFWORKINGDAYS);
-
+CompanyEmpWage company = new CompanyEmpWage( companyname, EMPRATEPERHOUR, MAXHRSINMONTH, NUMOFWORKINGDAYS);
+companyEmpWageArray.add(company);
 }
 
 int getworkhrs()
@@ -87,7 +87,7 @@ System.out.println("Computation of total wage of " + companyEmpWage.company + " 
 
 
 public static void main(String[] args) {
-Empwage obj = new Empwage(2);
+Empwage obj = new Empwage();
 obj.addCompany( "DMART", 20, 100, 20);
 obj.addCompany( "jiomart", 15, 90, 15);
 obj.wage();
