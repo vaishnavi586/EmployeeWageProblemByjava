@@ -1,60 +1,92 @@
+class CompanyEmpWage{
+final String company;
+final int EMP_RATE_PER_HOUR;
+final int MAX_HRS_IN_MONTH;
+final int NUM_OF_WORKING_DAYS;
+int totalEmpWage;
+CompanyEmpWage(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
+company = companyname;
+EMP_RATE_PER_HOUR =  EMPRATEPERHOUR;
+MAX_HRS_IN_MONTH = MAXHRSINMONTH;
+NUM_OF_WORKING_DAYS = NUMOFWORKINGDAYS;
+}
+void setTotalEmpWage(int totalEmpWage) {
+   this.totalEmpWage = totalEmpWage;
+}
+
+public String toString() {
+return "total employee wage of company" +company+ " is" +totalEmpWage;
+}
+}
+
 public class Empwage {
 public static final int IS_PART_TIME = 1;
-public static final int IS_FULL_TIME = 2;
-private final String company;
-private final int EMP_RATE_PER_HOUR;
-private final int MAX_HRS_IN_MONTH;
-private final  int NUM_OF_WORKING_DAYS;
-private int totalEmpWage;
-
-public Empwage(String company, int EMP_RATE_PER_HOUR, int MAX_HRS_IN_MONTH, int NUM_OF_WORKING_DAYS) {
-this.company = company;
-this.EMP_RATE_PER_HOUR =  EMP_RATE_PER_HOUR;
-this.MAX_HRS_IN_MONTH = MAX_HRS_IN_MONTH;
-this.NUM_OF_WORKING_DAYS = NUM_OF_WORKING_DAYS;
+public static final int IS_FULL_TIME =2;
+int noofcompanies, index;
+CompanyEmpWage[] companyEmpWageArray;
+public Empwage(int noofcompanies) {
+this.noofcompanies = noofcompanies;   
+companyEmpWageArray = new CompanyEmpWage[noofcompanies];
+index=0;
 }
-public void wage() {
-int empHrs = 0; int totalEmpHrs = 0;
- int totalWorkingDays = 0;
-while (totalEmpHrs <= MAX_HRS_IN_MONTH &&  totalWorkingDays < NUM_OF_WORKING_DAYS) {
-totalWorkingDays++;
+
+
+void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
+companyEmpWageArray[index++] = new CompanyEmpWage( companyname, EMPRATEPERHOUR, MAXHRSINMONTH, NUMOFWORKINGDAYS);
+
+}
+
+int getworkhrs()
+{
 
 int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 switch (empCheck) {
 case IS_PART_TIME:
-   empHrs = 4;
-   break;
+   return 4;
+
 case IS_FULL_TIME:
-  empHrs = 8;
-break;
+  return 8;
+
 default:
-   empHrs = 0;
+   return 0;
 }
-totalEmpHrs += empHrs;
-System.out.println("Day#: " + totalWorkingDays + " totalEmpHrs: " +totalEmpHrs);
+}
+ void wage() {
+for ( CompanyEmpWage company : companyEmpWageArray)
+{
+ int totalWage = wage(company);
+  company.setTotalEmpWage(totalWage);
+  System.out.println(company);
 
 }
-totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
-
 }
 
-@Override
-public String toString() {
-return "total employee wage of company" +company+ " is" +totalEmpWage;
-}
+int wage(CompanyEmpWage companyEmpWage) {
+System.out.println("Computation of total wage of " + companyEmpWage.company + " employee");
+        System.out.println("-----------------------------------------------------");
+        System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
+
+        int workingHrs, totalWage = 0;
+        for (int day = 1, totalWorkingHrs = 0; day <= companyEmpWage.NUM_OF_WORKING_DAYS
+                && totalWorkingHrs <= companyEmpWage.MAX_HRS_IN_MONTH; day++, totalWorkingHrs += workingHrs)
+        {
+            workingHrs = getworkhrs();
+            int wage = workingHrs *companyEmpWage.EMP_RATE_PER_HOUR;
+            totalWage += wage;
+            System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+        }
+        return totalWage;
+    }
+
+
 public static void main(String[] args) {
-
-Empwage dmart=new Empwage( "DMART", 20, 100, 20);
-Empwage jiomart=new Empwage( "jiomart", 15, 90, 15);
-dmart.wage();
-System.out.println(dmart);
-jiomart.wage();
-System.out.println(jiomart);
+Empwage obj = new Empwage(2);
+obj.addCompany( "DMART", 20, 100, 20);
+obj.addCompany( "jiomart", 15, 90, 15);
+obj.wage();
 
 }
 
 }
-
-
 
 
