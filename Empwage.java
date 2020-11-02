@@ -1,3 +1,10 @@
+interface IEmpwage
+{
+    public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS);
+
+    public void wage();
+}
+
 class CompanyEmpWage{
 final String company;
 final int EMP_RATE_PER_HOUR;
@@ -13,13 +20,13 @@ NUM_OF_WORKING_DAYS = NUMOFWORKINGDAYS;
 void setTotalEmpWage(int totalEmpWage) {
    this.totalEmpWage = totalEmpWage;
 }
-
+@Override
 public String toString() {
 return "total employee wage of company" +company+ " is" +totalEmpWage;
 }
 }
 
-public class Empwage {
+class Empwage implements IEmpwage {
 public static final int IS_PART_TIME = 1;
 public static final int IS_FULL_TIME =2;
 int noofcompanies, index;
@@ -31,7 +38,7 @@ index=0;
 }
 
 
-void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
+public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
 companyEmpWageArray[index++] = new CompanyEmpWage( companyname, EMPRATEPERHOUR, MAXHRSINMONTH, NUMOFWORKINGDAYS);
 
 }
@@ -51,7 +58,7 @@ default:
    return 0;
 }
 }
- void wage() {
+ public void wage() {
 for ( CompanyEmpWage company : companyEmpWageArray)
 {
  int totalWage = wage(company);
