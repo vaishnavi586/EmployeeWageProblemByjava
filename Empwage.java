@@ -5,6 +5,8 @@ interface IEmpwage
     public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS);
 
     public void wage();
+   
+    public int gettotalwage(String companyname);
 
 }
 
@@ -89,7 +91,7 @@ System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", 
             workingHrs = getworkhrs();
             int wage = workingHrs *companyEmpWage.EMP_RATE_PER_HOUR;
             totalWage += wage;
-             System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+             System.out.printf("%5d  %5d  %5d   %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
         }
         companyToEmpWageMap.put(companyEmpWage.company, totalWage);
         return totalWage;
@@ -103,13 +105,22 @@ for (String companyname : companyToEmpWageMap.keySet())
 }
 }
 
+
+public int gettotalwage(String companyname)
+{
+return companyToEmpWageMap.get(companyname);
+}
 public static void main(String[] args) {
 Empwage obj = new Empwage();
 obj.addCompany( "DMART", 20, 100, 20);
 obj.addCompany( "jiomart", 15, 90, 15);
 obj.wage();
 obj.displaycompanyToEmpWageMap();
+String query = "DMART";
+int totalWage =obj.gettotalwage(query);
+ System.out.println("Total Employee Wage for " + query + " company is " + totalWage);
 }
+
 
 }
 
