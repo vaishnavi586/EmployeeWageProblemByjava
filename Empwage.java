@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 interface IEmpwage
 {
     public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS);
 
     public void wage();
+
 }
 
 class CompanyEmpWage{
@@ -32,15 +34,20 @@ public static final int IS_PART_TIME = 1;
 public static final int IS_FULL_TIME =2;
 int noofcompanies, index;
 ArrayList<CompanyEmpWage> companyEmpWageArray;
+HashMap<String,Integer> companyToEmpWageMap;
 public Empwage()
+
 {
 companyEmpWageArray= new ArrayList<>();
+companyToEmpWageMap = new HashMap<>();
+
 }
 
 
 public void addCompany(String companyname, int EMPRATEPERHOUR, int MAXHRSINMONTH, int NUMOFWORKINGDAYS) {
 CompanyEmpWage company = new CompanyEmpWage( companyname, EMPRATEPERHOUR, MAXHRSINMONTH, NUMOFWORKINGDAYS);
 companyEmpWageArray.add(company);
+companyToEmpWageMap.put(companyname,0);
 }
 
 int getworkhrs()
@@ -68,10 +75,12 @@ for ( CompanyEmpWage company : companyEmpWageArray)
 }
 }
 
+
 int wage(CompanyEmpWage companyEmpWage) {
 System.out.println("Computation of total wage of " + companyEmpWage.company + " employee");
-        System.out.println("-----------------------------------------------------");
-        System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
+System.out.printf("%5s     %5s     %5s     %5s\n", "Day", "Workinghrs", "Wage", "Total working hrs");
+       
+       
 
         int workingHrs, totalWage = 0;
         for (int day = 1, totalWorkingHrs = 0; day <= companyEmpWage.NUM_OF_WORKING_DAYS
@@ -80,18 +89,26 @@ System.out.println("Computation of total wage of " + companyEmpWage.company + " 
             workingHrs = getworkhrs();
             int wage = workingHrs *companyEmpWage.EMP_RATE_PER_HOUR;
             totalWage += wage;
-            System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
+             System.out.printf("%5d       %5d      %5d      %5d\n", day, workingHrs, wage, totalWorkingHrs + workingHrs);
         }
+        companyToEmpWageMap.put(companyEmpWage.company, totalWage);
         return totalWage;
     }
 
+void displaycompanyToEmpWageMap()
+{
+for (String companyname : companyToEmpWageMap.keySet())
+{
+   System.out.println(companyname+":"+companyToEmpWageMap.get(companyname));
+}
+}
 
 public static void main(String[] args) {
 Empwage obj = new Empwage();
 obj.addCompany( "DMART", 20, 100, 20);
 obj.addCompany( "jiomart", 15, 90, 15);
 obj.wage();
-
+obj.displaycompanyToEmpWageMap();
 }
 
 }
